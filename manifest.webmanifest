@@ -1,0 +1,16 @@
+{
+  "name": "超凡人生｜代誦佛菩薩咒語",
+  "short_name": "超凡人生",
+  "description": "代誦佛菩薩咒語，為您與家人祈福圓滿。",
+  "lang": "zh-Hant",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fdf6ea",
+  "theme_color": "#caa24a",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

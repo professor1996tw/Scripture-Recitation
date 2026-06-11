@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#caa24a" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="超凡人生" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<title>超凡人生｜代誦佛菩薩咒語</title>
+<style>
+:root{
+  --gold:#c9a24a; --gold-deep:#a87f2c; --gold-light:#e7cf8f; --gold-bright:#f3dca0;
+  --cream:#fdf8ef; --cream2:#f6ecd8; --ink:#5a4a2c; --ink-soft:#8a784f;
+  --shadow:0 10px 30px rgba(168,127,44,.16); --shadow-soft:0 4px 14px rgba(168,127,44,.10);
+  --radius:22px;
+  --serif:"Noto Serif TC",serif; --sans:"Noto Sans TC","PingFang TC",sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;font-family:var(--sans);color:var(--ink);background:#e9e2d3}
+body{display:flex;justify-content:center;min-height:100vh}
+.app{position:relative;width:100%;max-width:430px;min-height:100vh;
+  background:linear-gradient(180deg,#fffdf8 0%,#fdf6ea 40%,#f7ecd6 100%);overflow:hidden;box-shadow:0 0 50px rgba(0,0,0,.14)}
+.screen{display:none;flex-direction:column;min-height:100vh}
+.screen.active{display:flex;animation:fade .45s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.scroll{flex:1;overflow-y:auto;padding-bottom:96px}
+.statusbar{display:flex;justify-content:space-between;align-items:center;padding:10px 18px 2px;font-size:13px;font-weight:600;color:var(--ink)}
+
+.foil{background:linear-gradient(100deg,#a87f2c 0%,#e6c878 25%,#fff3cf 42%,#e6c878 60%,#a87f2c 100%);
+  background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shine 5.5s linear infinite}
+@keyframes shine{to{background-position:-250% 0}}
+.foil-strong{filter:drop-shadow(0 1px 0 rgba(120,86,20,.55)) drop-shadow(0 2px 6px rgba(120,86,20,.25))}
+
+.btn-gold{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  padding:17px;border:none;border-radius:40px;color:#5a3d12;font-size:17px;font-weight:700;cursor:pointer;font-family:var(--serif);
+  background:linear-gradient(135deg,#f3dca0,#d4af56 45%,#b88a30);
+  box-shadow:0 12px 26px rgba(168,127,44,.45),inset 0 1px 0 rgba(255,255,255,.6);overflow:hidden}
+.btn-gold::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-20deg);animation:sweep 4s ease-in-out infinite}
+@keyframes sweep{0%,60%{left:-60%}100%{left:130%}}
+.btn-gold:active{transform:scale(.985)}
+.btn-ghost{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;padding:15px;border-radius:40px;
+  border:1.5px solid #e6d3a4;background:#fff;color:var(--ink);font-size:15px;font-weight:600;cursor:pointer}
+.btn-ghost:active{transform:scale(.985)}
+.chip{display:inline-block;padding:3px 11px;border-radius:20px;font-size:11px;background:linear-gradient(135deg,#faf0d8,#f1e1bd);color:var(--gold-deep);margin-right:6px;border:.5px solid rgba(201,162,74,.3)}
+.glass{background:rgba(255,255,255,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.7)}
+
+#splash{justify-content:flex-end;align-items:center;text-align:center;padding-bottom:48px;
+  background:linear-gradient(180deg,rgba(250,242,226,0) 26%,rgba(248,238,218,.5) 56%,#f3e4c4 100%),url(assets/images/splash.webp) center/cover no-repeat}
+#splash .halo{position:absolute;top:-10%;left:50%;width:380px;height:380px;transform:translateX(-50%);
+  background:radial-gradient(circle,rgba(255,240,200,.4),transparent 62%)}
+#splash .rays{position:absolute;top:-10%;left:50%;width:420px;height:420px;transform:translateX(-50%);
+  background:conic-gradient(from 0deg,transparent 0 8deg,rgba(255,224,150,.25) 9deg 10deg,transparent 11deg 18deg);
+  border-radius:50%;animation:spin 60s linear infinite;display:none}
+@keyframes spin{to{transform:translateX(-50%) rotate(360deg)}}
+.spark{position:absolute;border-radius:50%;background:radial-gradient(circle,#fff6da,rgba(231,207,143,0));animation:float 6s ease-in-out infinite}
+#splash .content{position:relative;z-index:3;padding:0 30px}
+#splash h1{font-family:var(--serif);font-size:48px;letter-spacing:16px;margin:16px 0 8px;font-weight:900;padding-left:16px}
+#splash .sub{color:var(--ink-soft);font-size:14px;letter-spacing:4px;margin-bottom:4px}
+#splash .merit{color:var(--gold-deep);font-size:13px;letter-spacing:5px;margin:30px 0 30px;font-family:var(--serif)}
+#splash .btn-gold{width:230px;margin:0 auto}
+#splash .login{margin-top:20px;color:var(--ink-soft);font-size:13px}
+#splash .login a{color:var(--gold-deep);font-weight:700;text-decoration:none;cursor:pointer}
+@keyframes float{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-16px);opacity:1}}
+
+#login{background:linear-gradient(180deg,#fffdf8,#f6ecd6)}
+#login .lwrap{flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 30px;text-align:center}
+#login .lotus{font-size:46px;margin-bottom:8px}
+#login h1{font-family:var(--serif);font-size:34px;letter-spacing:10px;font-weight:900;margin:4px 0 6px;padding-left:10px}
+#login .sub{color:var(--ink-soft);font-size:13px;letter-spacing:3px;margin-bottom:34px}
+.field{display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid #ecdcb4;border-radius:16px;padding:14px 16px;margin-bottom:13px;box-shadow:var(--shadow-soft)}
+.field input{flex:1;border:none;outline:none;font-size:15px;font-family:var(--sans);color:var(--ink);background:transparent}
+.field input::placeholder{color:#bcab84}
+.codeboxes{display:flex;gap:9px;justify-content:center;margin-bottom:14px}
+.codeboxes input{width:46px;height:54px;text-align:center;font-size:22px;font-family:var(--serif);font-weight:700;color:var(--gold-deep);border:1.5px solid #ecdcb4;border-radius:14px;background:#fff;outline:none}
+.codeboxes input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,74,.18)}
+.divider{display:flex;align-items:center;gap:12px;color:var(--ink-soft);font-size:12px;margin:18px 0}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:#e7d8b4}
+.gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px;border-radius:40px;border:1.5px solid #e3e3e3;background:#fff;color:#444;font-size:15px;font-weight:600;cursor:pointer}
+.gbtn:active{transform:scale(.985)}
+#login .resend{color:var(--ink-soft);font-size:12px;margin-top:6px}
+#login .resend a{color:var(--gold-deep);font-weight:700;cursor:pointer}
+#login .terms{color:var(--ink-soft);font-size:11px;line-height:1.7;margin-top:26px}
+#login .terms a{color:var(--gold-deep);cursor:pointer}
+.back-link{position:absolute;top:46px;left:18px;z-index:5;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer}
+
+.hero{position:relative;padding:8px 22px 26px;border-radius:0 0 34px 34px;overflow:hidden;
+  background:linear-gradient(160deg,#fcefd2,#f1d9a6)}
+.hero::before{content:"";position:absolute;right:-40px;top:-30px;width:220px;height:220px;
+  background:radial-gradient(circle,rgba(255,240,200,.9),transparent 65%)}
+.hero .who{color:var(--ink-soft);font-size:13px}
+.hero h2{font-family:var(--serif);font-size:32px;margin:2px 0 6px;font-weight:900;letter-spacing:5px}
+.hero p{font-size:13px;color:var(--ink-soft);line-height:1.7;max-width:60%;position:relative;z-index:2}
+.hero .buddha{position:absolute;right:10px;top:8px;width:140px;z-index:1;filter:drop-shadow(0 8px 16px rgba(168,127,44,.35))}
+.quick{display:flex;justify-content:space-between;gap:8px;margin:-30px 16px 0;border-radius:var(--radius);padding:18px 10px;box-shadow:var(--shadow);position:relative;z-index:3}
+.quick .q{flex:1;text-align:center;cursor:pointer;transition:.2s}
+.quick .q:active{transform:scale(.94)}
+.quick .ic{width:48px;height:48px;margin:0 auto 7px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#f6e6c0,#e4c886);font-size:22px;box-shadow:inset 0 1px 2px rgba(255,255,255,.7),0 3px 8px rgba(168,127,44,.18)}
+.quick .q span{font-size:12px;color:var(--ink);font-weight:500}
+.banner{margin:18px 16px;border-radius:var(--radius);padding:17px 19px;display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(120deg,#f6e6c0,#edd49e);box-shadow:var(--shadow);cursor:pointer;position:relative;overflow:hidden}
+.banner b{font-family:var(--serif);font-size:15px;color:var(--gold-deep)}
+.banner small{display:block;color:var(--ink-soft);font-size:12px;margin-top:4px}
+.section-h{display:flex;justify-content:space-between;align-items:center;margin:8px 18px 12px;font-family:var(--serif);font-weight:700;font-size:18px;color:var(--ink)}
+.section-h a{font-size:12px;color:var(--ink-soft);text-decoration:none;font-weight:500;cursor:pointer;font-family:var(--sans)}
+.hot{display:flex;gap:13px;overflow-x:auto;padding:0 16px 8px;scrollbar-width:none}
+.hot::-webkit-scrollbar{display:none}
+.hot .c{min-width:124px;background:#fff;border-radius:18px;box-shadow:var(--shadow-soft);overflow:hidden;cursor:pointer;transition:.2s}
+.hot .c:active{transform:translateY(2px)}
+.hot .c .pic{height:100px;background:radial-gradient(circle at 50% 38%,#fcefcb,#e7cc8a);display:flex;align-items:center;justify-content:center;font-size:44px}
+.hot .c .meta{padding:9px 11px}
+.hot .c .meta b{font-family:var(--serif);font-size:14px}
+.hot .c .meta p{font-size:11px;color:var(--ink-soft);margin:3px 0}
+.hot .c .meta .fire{font-size:11px;color:#c0772f}
+
+.tabbar{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-around;align-items:flex-end;
+  padding:11px 6px 20px;background:rgba(255,253,248,.92);backdrop-filter:blur(10px);border-top:1px solid #f0e4c9;z-index:20}
+.tabbar .t{flex:1;text-align:center;font-size:14px;font-weight:600;color:var(--ink-soft);cursor:pointer}
+.tabbar .t .ti{font-size:20px;display:block;margin-bottom:4px}
+.tabbar .t .ti svg{width:30px;height:30px;stroke-width:1.6}
+.tabbar .center .ti svg{width:34px;height:34px}
+.tabbar .t.on{color:var(--gold-deep);font-weight:700}
+.tabbar .center{transform:translateY(-16px)}
+.tabbar .center .ti{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 4px;
+  background:linear-gradient(135deg,#f3dca0,#b88a30);color:#fff;font-size:25px;box-shadow:0 10px 20px rgba(168,127,44,.5),inset 0 1px 0 rgba(255,255,255,.5)}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:8px 16px 12px}
+.topbar .title{font-family:var(--serif);font-weight:700;font-size:19px;letter-spacing:4px}
+.topbar .ico{width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--gold-deep);cursor:pointer}
+.search{display:flex;align-items:center;gap:8px;margin:0 16px 14px;background:#fff;border-radius:30px;padding:12px 16px;box-shadow:var(--shadow-soft);color:var(--ink-soft);font-size:14px}
+
+.list{padding:0 16px}
+.row{display:flex;align-items:center;gap:13px;background:#fff;border-radius:18px;padding:13px;margin-bottom:12px;box-shadow:var(--shadow-soft);cursor:pointer;transition:.2s}
+.row:active{transform:scale(.99)}
+.row .av{width:54px;height:54px;border-radius:15px;flex:none;display:flex;align-items:center;justify-content:center;font-size:27px;
+  background:radial-gradient(circle at 50% 40%,#fcefcb,#e7cc8a)}
+.row .info{flex:1;min-width:0}
+.row .info b{font-family:var(--serif);font-size:16px}
+.row .info .tags{margin:5px 0 4px}
+.row .info .fire{font-size:11px;color:#c0772f}
+.row .arrow{color:#cdb472;font-size:18px}
+
+.detail .full{position:relative;height:340px;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;cursor:pointer}
+.detail .full .img{position:absolute;inset:0;background-position:center 22%;background-size:cover;background-repeat:no-repeat}
+.detail .full .glow{position:absolute;top:-22%;left:50%;width:120%;height:120%;transform:translateX(-50%);
+  background:radial-gradient(circle at 50% 36%,rgba(255,244,206,.85),rgba(255,240,200,.25) 38%,transparent 60%);pointer-events:none}
+.detail .full .rays{position:absolute;top:-30%;left:50%;width:140%;height:140%;transform:translateX(-50%);pointer-events:none;
+  background:conic-gradient(from 0deg,transparent 0 7deg,rgba(255,226,150,.28) 8deg 9deg,transparent 10deg 17deg);
+  border-radius:50%;animation:spin 80s linear infinite;mix-blend-mode:screen}
+.detail .full .fade{position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(180deg,transparent,#fffdf8)}
+.detail .full .sparkD{position:absolute;border-radius:50%;background:radial-gradient(circle,#fff6da,rgba(231,207,143,0));animation:float 6s ease-in-out infinite;z-index:2}
+.detail .full .bf-hint{position:absolute;top:52px;left:16px;z-index:5;background:rgba(255,255,255,.55);backdrop-filter:blur(8px);color:var(--gold-deep);font-size:11px;padding:5px 11px;border-radius:20px;font-weight:600;pointer-events:none}
+.detail .topbar{position:absolute;left:0;right:0;top:0;z-index:5}
+.detail .back-sm{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-left:auto}
+.detail .back-sm svg{width:18px;height:18px}
+.detail .body{margin-top:-34px;background:#fffdf8;border-radius:34px 34px 0 0;padding:26px 20px 0;position:relative;z-index:3}
+.detail h2{font-family:var(--serif);font-size:25px;margin:0 0 10px;display:flex;align-items:center;gap:8px;font-weight:900}
+.detail .pop{font-size:11px;background:linear-gradient(135deg,#f3dca0,#b88a30);color:#fff;padding:3px 9px;border-radius:20px;font-family:var(--sans);font-weight:700}
+.detail .desc{font-size:13.5px;line-height:1.95;color:var(--ink-soft);margin:13px 0 18px}
+
+.player{display:flex;align-items:center;gap:13px;background:linear-gradient(120deg,#fbf1d8,#f3e3bd);border-radius:18px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow-soft)}
+.player .pp{width:46px;height:46px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;cursor:pointer;
+  background:linear-gradient(135deg,#e0bf6e,#a87f2c);box-shadow:0 4px 10px rgba(168,127,44,.4)}
+.player .mid{flex:1}
+.player .mid .ttl{font-size:13px;font-weight:700;color:var(--ink)}
+.player .bar{height:5px;border-radius:5px;background:#e8d6ad;margin-top:7px;overflow:hidden}
+.player .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#e0bf6e,#a87f2c);transition:width .2s linear}
+.player .tm{font-size:11px;color:var(--ink-soft);margin-top:5px}
+.count-line{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--ink-soft);margin:0 4px 18px}
+.count-line b{font-family:var(--serif);color:var(--gold-deep);font-size:15px}
+
+.merits{display:flex;justify-content:space-between;text-align:center;margin-bottom:22px}
+.merits .m{flex:1}
+.merits .m .ic{width:48px;height:48px;border-radius:50%;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:21px;background:linear-gradient(135deg,#f6e6c0,#e4c886);box-shadow:inset 0 1px 2px rgba(255,255,255,.7)}
+.merits .m span{font-size:12px;color:var(--ink)}
+
+.cert{display:flex;align-items:center;gap:12px;border:1px dashed #d9c180;border-radius:16px;padding:14px;margin-bottom:14px;background:#fffaf0;cursor:pointer}
+.cert .seal{width:46px;height:46px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(135deg,#f3dca0,#b88a30);color:#fff}
+.cert b{font-family:var(--serif);font-size:14px}
+.cert small{display:block;color:var(--ink-soft);font-size:11.5px;margin-top:3px}
+.cert .arrow{margin-left:auto;color:#cdb472;white-space:nowrap}
+
+.plan-h{font-family:var(--serif);font-weight:700;font-size:17px;margin:8px 0 13px}
+.plan{position:relative;display:flex;align-items:center;justify-content:space-between;border:1.5px solid #ecdcb4;border-radius:17px;padding:15px 16px;margin-bottom:12px;cursor:pointer;background:#fff;transition:.2s}
+.plan.sel{border:2px solid var(--gold);background:#fff;box-shadow:0 6px 16px rgba(201,162,74,.22)}
+.plan .psel-tag{position:absolute;top:-1px;left:-1px;font-size:10px;background:var(--gold);color:#fff;padding:3px 11px;border-radius:16px 0 13px 0;font-weight:700;display:none}
+.plan.sel .psel-tag{display:block}
+.plan .l b{font-family:var(--serif);font-size:16px}
+.plan .l small{display:block;color:var(--ink-soft);font-size:12px;margin-top:3px}
+.plan .r{text-align:right}
+.plan .r .price{font-family:var(--serif);font-size:21px;font-weight:900;color:var(--gold-deep)}
+.plan .r .unit{font-size:12px;color:var(--ink-soft)}
+.plan .r .save{display:inline-block;margin-top:3px;font-size:10px;background:#fbe8c8;color:#a87f2c;padding:1px 7px;border-radius:10px}
+.plan .reco{position:absolute;top:-1px;right:-1px;font-size:11px;background:linear-gradient(135deg,#f0c96a,#a87f2c);color:#fff;padding:4px 13px;border-radius:0 16px 0 13px;font-weight:700;box-shadow:0 3px 8px rgba(168,127,44,.4)}
+.subscribe-bar{padding:14px 16px 22px;background:linear-gradient(180deg,transparent,#fffdf8 28%)}
+.subscribe-bar .lock{text-align:center;font-size:11px;color:var(--ink-soft);margin-top:10px}
+
+.page-head{display:flex;align-items:center;gap:10px;padding:8px 16px 14px}
+.page-head .ico{width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.page-head .title{font-family:var(--serif);font-weight:700;font-size:20px;letter-spacing:3px}
+.card{background:#fff;border-radius:18px;padding:16px;margin:0 16px 14px;box-shadow:var(--shadow-soft)}
+.card .lbl{font-size:12px;color:var(--ink-soft);margin-bottom:7px;display:block}
+.inp{width:100%;border:1.5px solid #ecdcb4;border-radius:14px;padding:13px 15px;font-size:15px;font-family:var(--sans);color:var(--ink);outline:none;background:#fffdf8}
+.inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,74,.15)}
+.inp::placeholder{color:#d3c6a6;opacity:1}
+textarea.inp{resize:none;line-height:1.8;min-height:150px}
+.hint{font-size:11.5px;color:var(--ink-soft);line-height:1.7;margin:0 20px 16px}
+.pad{padding:0 16px}
+.genders{display:flex;gap:8px}
+.genders .gd{flex:1;text-align:center;padding:11px 4px;border-radius:12px;border:1.5px solid #ecdcb4;font-size:14px;cursor:pointer;background:#fffdf8;color:var(--ink-soft)}
+.genders .gd.on{border-color:var(--gold);background:linear-gradient(120deg,#fffaf0,#fef4df);color:var(--gold-deep);font-weight:700}
+.msel{display:flex;flex-wrap:wrap;gap:8px}
+.msel .ms{padding:9px 13px;border-radius:20px;border:1.5px solid #ecdcb4;font-size:13px;cursor:pointer;background:#fffdf8;color:var(--ink-soft);font-family:var(--serif)}
+.msel .ms.on{border-color:var(--gold);background:linear-gradient(120deg,#fffaf0,#fef4df);color:var(--gold-deep);font-weight:700}
+.dcbtn{width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f6e6c0,#e4c886);cursor:pointer;font-size:17px}
+.dcbtn.del2{background:#fbeede}
+.locked{opacity:.45}
+.miniplayer{position:fixed;left:50%;transform:translateX(-50%);bottom:88px;z-index:60;display:none;align-items:center;gap:10px;background:rgba(90,74,44,.96);color:#fff;border-radius:30px;padding:8px 10px 8px 15px;box-shadow:0 8px 22px rgba(0,0,0,.28);max-width:92%}
+.miniplayer.show{display:flex}
+.miniplayer .mp-t{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
+.miniplayer .mp-b{width:34px;height:34px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f3dca0,#b88a30);color:#5a3d12;cursor:pointer;font-size:13px}
+.miniplayer .mp-x{width:30px;height:30px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;color:#e8dcc0;cursor:pointer;font-size:15px}
+
+.sub-card{position:relative;border-radius:20px;padding:18px;margin:0 16px 14px;overflow:hidden;color:#5a3d12;
+  background:linear-gradient(125deg,#fbeec9,#ecce8e);box-shadow:var(--shadow)}
+.sub-card .tag{position:absolute;top:14px;right:16px;font-size:11px;background:rgba(120,86,20,.16);padding:3px 10px;border-radius:20px;font-weight:700}
+.sub-card .nm{font-family:var(--serif);font-size:20px;font-weight:900}
+.sub-card .pl{font-size:13px;margin:6px 0 14px;color:#7a5a20}
+.sub-card .meta{display:flex;justify-content:space-between;font-size:12px;color:#7a5a20}
+.mini-btn{border:none;background:rgba(255,255,255,.6);color:#7a5a20;border-radius:20px;padding:6px 13px;font-size:12px;font-weight:700;cursor:pointer}
+
+.profile-top{text-align:center;padding:24px 16px 6px}
+.profile-top .ava{width:78px;height:78px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:34px;color:#fff;background:linear-gradient(135deg,#f3dca0,#b88a30);box-shadow:0 8px 18px rgba(168,127,44,.4)}
+.profile-top .nm{font-family:var(--serif);font-size:20px;font-weight:900}
+.profile-top .mail{font-size:12px;color:var(--ink-soft);margin-top:3px}
+.stats{display:flex;margin:16px;border-radius:18px;background:#fff;box-shadow:var(--shadow-soft);overflow:hidden}
+.stats .s{flex:1;text-align:center;padding:15px 4px;border-right:1px solid #f0e6cf}
+.stats .s:last-child{border:none}
+.stats .s b{font-family:var(--serif);font-size:21px;color:var(--gold-deep);display:block}
+.stats .s span{font-size:11px;color:var(--ink-soft)}
+.menu{margin:0 16px}
+.menu .mi{display:flex;align-items:center;gap:13px;background:#fff;border-radius:15px;padding:15px;margin-bottom:11px;box-shadow:var(--shadow-soft);cursor:pointer}
+.menu .mi .mic{width:38px;height:38px;border-radius:11px;flex:none;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f6e6c0,#e4c886)}
+.menu .mi b{font-size:14.5px;font-weight:600;flex:1}
+.menu .mi .arrow{color:#cdb472}
+
+.ach-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:0 16px 4px}
+.ach{background:#fff;border-radius:16px;padding:14px 8px;text-align:center;box-shadow:var(--shadow-soft)}
+.ach.lock{opacity:.45;filter:grayscale(.6)}
+.ach .badge{width:46px;height:46px;border-radius:50%;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(135deg,#f3dca0,#d4af56);box-shadow:0 6px 14px rgba(168,127,44,.3)}
+.ach b{font-family:var(--serif);font-size:12.5px;display:block;line-height:1.3}
+.ach small{font-size:10px;color:var(--ink-soft)}
+.rec{display:flex;align-items:center;gap:12px;background:#fff;border-radius:15px;padding:13px;margin:0 16px 11px;box-shadow:var(--shadow-soft)}
+.rec .av{width:46px;height:46px;border-radius:13px;flex:none;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-size:22px}
+.rec .info{flex:1;min-width:0}
+.rec .info b{font-family:var(--serif);font-size:15px}
+.rec .info span{font-size:11.5px;color:var(--ink-soft);display:block;margin-top:2px}
+.rec .num{font-family:var(--serif);font-weight:900;color:var(--gold-deep);font-size:17px}
+.rec .num small{font-size:11px;font-weight:400;color:var(--ink-soft)}
+.rec .del{flex:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fbeede;color:#c0772f;cursor:pointer}
+.rec .del svg{width:15px;height:15px}
+
+.empty{text-align:center;padding:60px 30px;color:var(--ink-soft)}
+.empty .ei{font-size:54px;margin-bottom:14px;opacity:.7}
+.empty p{font-size:13px;line-height:1.8}
+
+.buddha-full{position:fixed;inset:0;display:none;z-index:80;overflow:hidden;background:#0d0a05}
+.buddha-full.show{display:block;animation:fade .4s ease}
+.buddha-full .bf-img{position:absolute;inset:0;background-position:center 44%;background-size:cover;background-repeat:no-repeat}
+.buddha-full .bf-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 42%,rgba(255,240,200,.45),rgba(120,90,30,.12) 46%,rgba(16,11,5,.86) 100%)}
+.buddha-full .bf-rays{position:absolute;top:42%;left:50%;width:200vmax;height:200vmax;transform:translate(-50%,-50%);pointer-events:none;
+  background:conic-gradient(from 0deg,transparent 0 6deg,rgba(255,224,150,.20) 7deg 8deg,transparent 9deg 16deg);border-radius:50%;animation:spin 90s linear infinite;mix-blend-mode:screen}
+.buddha-full .bf-spark{position:absolute;border-radius:50%;background:radial-gradient(circle,#fff6da,rgba(231,207,143,0));animation:float 6s ease-in-out infinite;z-index:2}
+.buddha-full .bf-hx{position:absolute;left:0;right:0;bottom:104px;text-align:center;font-size:13px;letter-spacing:2px;color:#ffe9b8;z-index:3;text-shadow:0 2px 10px rgba(0,0,0,.6);padding:0 30px}
+.buddha-full .bf-name{position:absolute;left:0;right:0;bottom:66px;text-align:center;font-family:var(--serif);font-size:30px;font-weight:900;letter-spacing:8px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.55);z-index:3;padding-left:8px}
+.buddha-full .bf-sub{position:absolute;left:0;right:0;bottom:42px;text-align:center;font-size:12px;letter-spacing:5px;color:rgba(255,245,220,.7);z-index:3}
+.buddha-full .bf-close{position:absolute;top:46px;right:18px;z-index:5;display:flex;align-items:center;gap:5px;padding:8px 14px;border-radius:30px;cursor:pointer;
+  background:rgba(255,255,255,.18);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font-size:13px;font-weight:600}
+.buddha-full .bf-close svg{width:16px;height:16px}
+
+.toast{position:fixed;left:50%;bottom:120px;transform:translateX(-50%);background:rgba(90,74,44,.95);color:#fff;
+  padding:12px 22px;border-radius:30px;font-size:14px;opacity:0;pointer-events:none;transition:.3s;z-index:90}
+.toast.show{opacity:1}
+.install{position:absolute;top:46px;left:16px;right:16px;border-radius:16px;padding:12px 14px;
+  display:none;align-items:center;gap:10px;box-shadow:var(--shadow);z-index:40}
+.install.show{display:flex}
+.install b{font-size:13px}.install small{font-size:11px;color:var(--ink-soft)}
+.install button{margin-left:auto;border:none;background:var(--gold);color:#fff;border-radius:20px;padding:7px 14px;font-weight:700;cursor:pointer}
+.install .x{background:none;color:var(--ink-soft);padding:6px}
+
+.modal{position:fixed;inset:0;background:rgba(60,48,24,.45);display:none;align-items:center;justify-content:center;z-index:100;padding:28px}
+.modal.show{display:flex;animation:fade .3s ease}
+.modal-card{background:#fffdf8;border-radius:24px;padding:26px 22px 22px;max-width:360px;width:100%;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.modal-card .mt{width:58px;height:58px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:27px;background:linear-gradient(135deg,#f3dca0,#b88a30);color:#fff}
+.modal-card h3{font-family:var(--serif);font-size:19px;margin:0 0 10px;font-weight:900}
+.modal-card p{font-size:13px;line-height:1.85;color:var(--ink-soft);margin:0 0 20px;text-align:left}
+.modal-card .mbtns{display:flex;gap:10px}
+.modal-card .mbtns button{flex:1;padding:13px;border-radius:30px;font-size:14px;font-weight:700;cursor:pointer;border:none}
+.mb-primary{background:linear-gradient(135deg,#f3dca0,#b88a30);color:#5a3d12}
+.mb-ghost{background:#f0e6cf;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="install glass" id="installBar">
+    <div>🪷</div>
+    <div><b>加入主畫面</b><small>像 App 一樣使用「超凡人生」</small></div>
+    <button onclick="doInstall()">安裝</button>
+    <button class="x" onclick="document.getElementById('installBar').classList.remove('show')">✕</button>
+  </div>
+
+  <section class="screen active" id="splash">
+    <div class="rays"></div>
+    <div class="halo"></div>
+    <div class="content">
+      <h1 class="foil foil-strong">超凡人生</h1>
+      <div class="sub">代誦佛菩薩咒語 · 為您祈福圓滿</div>
+      <div class="merit">— 以心代誦 · 功德無量 —</div>
+      <button class="btn-gold" onclick="go('home')">開始體驗 &nbsp;›</button>
+      <div class="login">已有帳號？ <a onclick="go('login')">立即登入</a></div>
+    </div>
+  </section>
+
+  <section class="screen" id="login">
+    <div class="back-link" onclick="go('splash')"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#a87f2c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></div>
+    <div class="lwrap">
+      <div class="lotus">🪷</div>
+      <h1 class="foil foil-strong">超凡人生</h1>
+      <div class="sub">登入以同步您的代誦與迴向紀錄</div>
+      <button class="gbtn" onclick="doLogin()">
+        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.6l6.7-6.7C35.6 2.4 30.1 0 24 0 14.6 0 6.4 5.4 2.5 13.3l7.8 6.1C12.2 13.2 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.4 5.7c4.3-4 6.2-9.9 6.2-17.4z"/><path fill="#FBBC05" d="M10.3 28.6c-.5-1.4-.8-2.9-.8-4.6s.3-3.2.8-4.6l-7.8-6.1C.9 16.5 0 20.1 0 24s.9 7.5 2.5 10.7l7.8-6.1z"/><path fill="#34A853" d="M24 48c6.1 0 11.3-2 15-5.5l-7.4-5.7c-2 1.4-4.7 2.3-7.6 2.3-6.4 0-11.8-3.7-13.7-8.9l-7.8 6.1C6.4 42.6 14.6 48 24 48z"/></svg>
+        使用 Google 帳號登入
+      </button>
+      <div class="divider">或使用 Email</div>
+      <div id="login-step1">
+        <div class="field">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#a98a4e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6.5h17v11h-17zM4 7l8 6 8-6"/></svg>
+          <input type="email" placeholder="輸入您的 Email" />
+        </div>
+        <button class="btn-gold" onclick="loginStep(2)">寄送驗證碼</button>
+      </div>
+      <div id="login-step2" style="display:none">
+        <div class="hint" style="margin:0 0 16px;text-align:center">驗證碼已寄至您的信箱（免費 Email 額度，非簡訊）</div>
+        <div class="codeboxes">
+          <input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric">
+        </div>
+        <button class="btn-gold" onclick="doLogin()">驗證並登入</button>
+        <div class="resend">沒收到？ <a onclick="toast('已重新寄送（示意）')">重新寄送</a> · <a onclick="loginStep(1)">換 Email</a></div>
+      </div>
+      <div class="terms">登入即表示您同意 <a onclick="toast('服務條款（待補）')">服務條款</a> 與 <a onclick="toast('隱私權政策（待法務）')">隱私權政策</a></div>
+    </div>
+  </section>
+
+  <section class="screen" id="home">
+    <div class="scroll">
+      <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="hero">
+        <img class="buddha" src="assets/images/hero-buddha.webp" alt="">
+        <div class="who">您好，歡迎回來</div>
+        <h2 class="foil foil-strong">超凡人生</h2>
+        <p>代誦佛菩薩咒語，為您與家人祈福圓滿</p>
+      </div>
+      <div class="quick glass">
+        <div class="q" onclick="go('subscribe')"><div class="ic"><svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="#8a5a17" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17.5h16M5.2 17.5 3.8 8.2l4.4 3.6L12 5l3.8 6.8 4.4-3.6-1.4 9.3"/></svg></div><span>我的訂閱</span></div>
+        <div class="q" onclick="go('list')"><div class="ic"><svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="#8a5a17" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19c-3.6 0-6.5-1.8-6.5-4.5 1.9 0 3.7.7 4.8 1.9M12 19c3.6 0 6.5-1.8 6.5-4.5-1.9 0-3.7.7-4.8 1.9M12 19c0-2.8-1.6-5.4-1.6-7.2.8-1 1.6-1.3 1.6-1.3s.8.3 1.6 1.3c0 1.8-1.6 4.4-1.6 7.2"/></svg></div><span>咒語選擇</span></div>
+        <div class="q" onclick="go('records')"><div class="ic"><svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="#8a5a17" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 4.5h11v15l-5.5-3.5L6.5 19.5zM9 8.5h6M9 11.5h6"/></svg></div><span>代誦記錄</span></div>
+        <div class="q" onclick="go('huixiang')"><div class="ic"><svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="#8a5a17" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.5C8.5 17 5 14 5 10.6 5 8.6 6.6 7 8.5 7c1.4 0 2.7.8 3.5 2 .8-1.2 2.1-2 3.5-2C17.4 7 19 8.6 19 10.6c0 3.4-3.5 6.4-7 8.9z"/></svg></div><span>祈福迴向</span></div>
+      </div>
+      <div class="banner" onclick="go('daichant')">
+        <div><b>以心代誦 · 傳遞善念與祝福</b><small>輸入您的祈願，讓系統為您誦念</small></div>
+        <div style="font-size:28px">🪷</div>
+      </div>
+      <div class="section-h">熱門咒語 <a onclick="go('list')">查看更多 ›</a></div>
+      <div class="hot">
+        <div class="c" onclick="openDetail('dabei')"><div class="pic" style="background:url(assets/images/cover-dabei.webp) center/cover"></div><div class="meta"><b>大悲咒</b><p>消災解厄·息災加持</p><div class="fire">🔥 9,999+ 人訂閱</div></div></div>
+        <div class="c" onclick="openDetail('xinjing')"><div class="pic" style="background:url(assets/images/cover-xinjing.webp) center/cover"></div><div class="meta"><b>心經</b><p>般若智慧·開智慧</p><div class="fire">🔥 8,888+ 人訂閱</div></div></div>
+        <div class="c" onclick="openDetail('yaoshi')"><div class="pic" style="background:url(assets/images/cover-yaoshi.webp) center/cover"></div><div class="meta"><b>藥師灌頂真言</b><p>健康平安·消災延壽</p><div class="fire">🔥 6,666+ 人訂閱</div></div></div>
+      </div>
+      <div id="homeFav"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="list">
+    <div class="scroll">
+      <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="topbar">
+        <div class="ico" onclick="go('home')"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#a87f2c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></div>
+        <div class="title">咒語選擇</div>
+        <div class="ico" onclick="toast('分類篩選（待補）')" style="width:auto;gap:5px;font-size:15px;font-weight:600;color:var(--gold-deep);white-space:nowrap;padding:0 4px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#a87f2c" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg> 分類</div>
+      </div>
+      <div class="search"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#a98a4e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><path d="M11 5a6 6 0 1 0 0 12A6 6 0 0 0 11 5zM20 20l-4.2-4.2"/></svg> 搜尋咒語名稱或功效</div>
+      <div class="list" id="mantraList"></div>
+    </div>
+  </section>
+
+  <section class="screen detail" id="detail">
+    <div class="scroll" style="padding-bottom:30px;background:#fffdf8">
+      <div class="full" onclick="openBuddha()">
+        <div class="img" id="d-img"></div>
+        <div class="glow"></div>
+        <div class="rays"></div>
+        <div class="fade"></div>
+        <div class="topbar">
+          <div class="back-sm glass" id="d-fav" onclick="event.stopPropagation();toggleFav(CUR)" style="margin:0;font-size:18px">🤍</div>
+          <div class="back-sm glass" onclick="event.stopPropagation();go('list')"><svg viewBox="0 0 24 24" fill="none" stroke="#a87f2c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"/></svg></div>
+        </div>
+        <div class="bf-hint">🔍 點圖看滿版佛像</div>
+      </div>
+      <div class="body">
+        <h2><span id="d-name">大悲咒</span> <span class="pop" id="d-pop">⭐ 最受歡迎</span></h2>
+        <div id="d-tags"></div>
+        <p class="desc" id="d-desc"></p>
+
+        <div class="player">
+          <div class="pp" id="ppBtn" onclick="togglePlay()">▶</div>
+          <div class="mid">
+            <div class="ttl" id="d-playttl">大悲咒 · 誦持音檔</div>
+            <div class="bar"><i id="barFill"></i></div>
+            <div class="tm"><span id="curT">00:00</span> / <span id="durT">00:00</span></div>
+          </div>
+        </div>
+        <div class="count-line">
+          <span>每完整播放一次計 <b id="d-perplay" style="font-size:13px">1</b> 遍</span>
+          <span>本咒已誦 <b id="d-count">0</b> 遍</span>
+        </div>
+
+        <div class="cert" id="d-hxcard" onclick="openHuixiang()" style="border-style:solid;border-color:#e0bf6e;background:linear-gradient(120deg,#fffaf0,#fdf1d6)">
+          <div class="seal">🕯️</div>
+          <div style="flex:1;min-width:0"><b id="d-hxtitle">設定迴向對象</b><small id="d-hxsub">填寫姓名與生日，將此咒功德迴向給對方</small></div>
+          <div class="arrow" id="d-hxarrow">設定 ›</div>
+        </div>
+        <div class="cert" onclick="toast('代誦迴向證明（待製作）')">
+          <div class="seal">📜</div>
+          <div><b>代誦迴向證明</b><small>每日完成持誦後，產生專屬迴向證明可保存分享</small></div>
+          <div class="arrow">›</div>
+        </div>
+
+        <div class="merits" id="d-merits"></div>
+
+        <div class="pad" style="padding:4px 0 2px"><button class="btn-ghost" onclick="go('subscribe')">查看訂閱方案 ›</button></div>
+      </div>
+    </div>
+    <audio id="audio" preload="none"></audio>
+  </section>
+
+  <section class="screen" id="daichant">
+    <div class="scroll">
+      <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="page-head"><div class="title">代誦祈願</div></div>
+      <div style="text-align:center;padding:6px 0 2px"><img src="assets/images/hero-buddha.webp" alt="" style="width:118px;height:118px;border-radius:50%;object-fit:cover;object-position:center 18%;box-shadow:0 8px 22px rgba(168,127,44,.35)"></div>
+      <div class="hint" style="text-align:center">新增您的祈願（標題＋內文），存好後點進去可設定誦念聲音、背景音與迴向。最多 3 則。</div>
+      <div id="dc-list"></div>
+      <div class="card">
+        <span class="lbl">祈願標題</span>
+        <input class="inp" id="dc-title" placeholder="例如：金光神咒" style="margin-bottom:12px" />
+        <span class="lbl">祈願內文</span>
+        <textarea class="inp" id="dc-body" placeholder="天地玄宗，萬炁本根。廣修億劫，證吾神通。三界內外，唯道獨尊。體有金光，覆映吾身。視之不見，聽之不聞。包羅天地，養育群生。受持萬遍，身有光明。三界侍衛，五帝司迎。萬神朝禮，役使雷霆。鬼妖喪膽，精怪亡形。內有霹靂，雷神隱名。洞慧交徹，五炁騰騰。金光速現，覆護真人。急急如玉皇上帝律令敕"></textarea>
+      </div>
+      <div class="pad">
+        <button class="btn-gold" onclick="addDaichant()">＋ 新增代誦</button>
+      </div>
+      <audio id="bgm" preload="none" loop></audio>
+      <audio id="muyu" preload="none" loop></audio>
+    </div>
+  </section>
+
+  <section class="screen" id="dcdetail">
+    <div class="scroll">
+      <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="page-head">
+        <div class="ico" onclick="go('daichant')"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#a87f2c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></div>
+        <div class="title">代誦詳情</div>
+        <div id="dcd-fav" onclick="toggleFav('dc_'+dcCUR)" style="margin-left:auto;font-size:22px;cursor:pointer">🤍</div>
+      </div>
+      <div style="text-align:center;padding:2px 0 6px"><img id="dcd-img" src="assets/images/hero-buddha.webp" alt="" onerror="this.src='assets/images/hero-buddha.webp'" style="width:128px;height:128px;border-radius:50%;object-fit:cover;object-position:center;box-shadow:0 8px 22px rgba(168,127,44,.35)"></div>
+      <div style="text-align:center;font-family:var(--serif);font-size:22px;font-weight:900;margin-bottom:6px" id="dcd-title">代誦</div>
+      <div class="card"><span class="lbl">祈願內文</span><div id="dcd-body" style="font-size:14px;line-height:1.95;color:var(--ink-soft)"></div></div>
+      <div class="pad"><button class="btn-gold" id="dcd-play" onclick="playDcDetail()">🔊 開始誦念</button></div>
+      <div class="card">
+        <span class="lbl">誦念聲音（裝置內建語音）</span>
+        <select class="inp" id="dcd-voice" onchange="setDcVoice(this.value)" style="margin-bottom:12px"></select>
+        <span class="lbl">語速</span>
+        <div class="msel" id="dcd-rate" style="margin-bottom:12px"></div>
+        <span class="lbl">音調</span>
+        <div class="msel" id="dcd-pitch" style="margin-bottom:12px"></div>
+        <span class="lbl">背景音（襌樂預設開啟，木魚可自行加掛）</span>
+        <div class="msel" id="dcd-muyu"></div>
+        <div class="hint" style="margin:10px 0 0;padding:0">想要更自然的誦經人聲？正式版可接 AI 誦經音檔（評估中）。</div>
+      </div>
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span class="lbl" style="margin:0">迴向對象</span><span onclick="huixiangDc(dcCUR)" style="font-size:12px;color:var(--gold-deep);font-weight:700;cursor:pointer">＋ 設定迴向 ›</span></div>
+        <div id="dcd-hx" style="font-size:13px;color:var(--ink-soft)"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="huixiang">
+    <div class="scroll">
+      <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="page-head">
+        <div class="ico" onclick="go('home')"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#a87f2c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></div>
+        <div class="title">祈福迴向</div>
+      </div>
+      <div class="hint">為「<b id="hx-for" style="color:var(--gold-deep)">代誦</b>」設定迴向對象（姓名＋性別＋生日）。每部咒的迴向各自獨立，最多 5 位。</div>
+      <div class="card">
+        <span class="lbl">迴向咒語</span>
+        <div class="msel" id="hx-mantra"></div>
+      </div>
+      <div id="hx-list"></div>
+      <div class="card">
+        <span class="lbl">迴向對象姓名</span>
+        <input class="inp" id="hx-name" placeholder="輸入姓名" />
+      </div>
+      <div class="card">
+        <span class="lbl">性別 / 類別</span>
+        <div class="genders" id="hx-gender">
+          <div class="gd on" data-g="male" onclick="pickGender('male')">👨 男</div>
+          <div class="gd" data-g="female" onclick="pickGender('female')">👩 女</div>
+          <div class="gd" data-g="other" onclick="pickGender('other')">🐾 動物</div>
+        </div>
+      </div>
+      <div class="card">
+        <span class="lbl">生日</span>
+        <input class="inp" id="hx-bday" type="date" />
+      </div>
+      <div class="pad">
+        <button class="btn-gold" id="hx-submit" onclick="submitHuixiang()">新增迴向對象</button>
+      </div>
+      <div class="hint" style="margin-top:14px">🔒 資料儲存方式以首次彈窗說明為準（目前預設僅存本機，待法務確認）。</div>
+    </div>
+  </section>
+
+  <section class="screen" id="hxmgr">
+    <div class="scroll">
+      <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="page-head">
+        <div class="ico" onclick="go('profile')"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#a87f2c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></div>
+        <div class="title">迴向對象管理</div>
+      </div>
+      <div class="hint">依咒語分組顯示您設定的迴向對象。同一人可在不同咒各自設定，統計時同名同生日視為一人。</div>
+      <div id="hxmgrList"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="subscribe">
+    <div class="scroll">
+      <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="page-head"><div class="title">我的訂閱</div></div>
+      <div id="sub-status"></div>
+      <div class="plan-h" style="margin:2px 16px 13px">選擇方案</div>
+      <div style="padding:0 16px">
+        <div class="plan sel" data-price="$3,600 /月" data-name="每月方案" onclick="selPlan(this)">
+          <div class="psel-tag">✓ 已選</div>
+          <div class="reco">⭐ 最推薦</div>
+          <div class="l"><b>每月方案</b><small>每月扣款，彈性續訂、隨時可取消</small></div>
+          <div class="r"><div class="price">$3,600</div><div class="unit">/月</div></div>
+        </div>
+        <div class="plan" data-price="$10,500 /季" data-name="每季方案" onclick="selPlan(this)">
+          <div class="psel-tag">✓ 已選</div>
+          <div class="l"><b>每季方案</b><small>每三個月扣款一次，平均更省</small></div>
+          <div class="r"><div class="price">$10,500</div><div class="unit">/季</div><span class="save">省 3%</span></div>
+        </div>
+        <div class="plan" data-price="$40,000 /年" data-name="每年方案" onclick="selPlan(this)">
+          <div class="psel-tag">✓ 已選</div>
+          <div class="l"><b>每年方案</b><small>一年一次扣款，最為優惠</small></div>
+          <div class="r"><div class="price">$40,000</div><div class="unit">/年</div><span class="save">省 7%</span></div>
+        </div>
+      </div>
+      <div class="pad" style="margin-top:4px"><button class="btn-gold" id="sub-btn" onclick="doSubscribe()">立即訂閱 <span id="curPrice">$3,600 /月</span></button></div>
+      <div class="section-h" style="margin-top:14px">帳務</div>
+      <div class="menu">
+        <div class="mi" onclick="toast('發票管理（待補）')"><div class="mic">🧾</div><b>發票 / 收據</b><div class="arrow">›</div></div>
+        <div class="mi" onclick="toast('扣款紀錄（待補）')"><div class="mic">💳</div><b>扣款紀錄</b><div class="arrow">›</div></div>
+      </div>
+      <div class="hint" style="margin-top:6px">金流走綠界／藍新定期定額，自動續扣、取消與退款政策依消保法明確標示。</div>
+    </div>
+  </section>
+
+  <section class="screen" id="records">
+    <div class="scroll">
+      <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="page-head">
+        <div class="ico" onclick="go('home')"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#a87f2c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></div>
+        <div class="title">代誦記錄</div>
+      </div>
+      <div class="stats">
+        <div class="s"><b id="r-total">0</b><span>累計遍數</span></div>
+        <div class="s"><b id="r-login">0</b><span>登入天數</span></div>
+        <div class="s"><b id="r-streak">0</b><span>連續天數</span></div>
+      </div>
+      <div class="section-h">各咒進度</div>
+      <div id="recList"></div>
+      <div id="achWrap"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="profile">
+    <div class="scroll">
+      <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="profile-top">
+        <div class="ava">🙏</div>
+        <div class="nm">善信 · 訪客</div>
+        <div class="mail" id="p-mail">尚未登入 · <a onclick="go('login')" style="color:var(--gold-deep);font-weight:700;cursor:pointer">立即登入</a></div>
+      </div>
+      <div class="stats">
+        <div class="s"><b id="p-total">0</b><span>累計遍數</span></div>
+        <div class="s"><b id="p-login">0</b><span>登入天數</span></div>
+        <div class="s"><b id="p-hx">0</b><span>迴向對象</span></div>
+      </div>
+      <div class="menu">
+        <div class="mi" onclick="go('subscribe')"><div class="mic">📜</div><b>我的訂閱</b><div class="arrow">›</div></div>
+        <div class="mi" onclick="go('records')"><div class="mic">📿</div><b>代誦記錄與成就</b><div class="arrow">›</div></div>
+        <div class="mi" onclick="go('hxmgr')"><div class="mic">🕯️</div><b>迴向對象管理</b><div class="arrow">›</div></div>
+        <div class="mi" onclick="go('favorites')"><div class="mic">🤍</div><b>我的收藏</b><div class="arrow">›</div></div>
+        <div class="mi" onclick="toast('設定（待補）')"><div class="mic">⚙️</div><b>設定</b><div class="arrow">›</div></div>
+        <div class="mi" onclick="toast('客服中心（待補）')"><div class="mic">💬</div><b>客服中心</b><div class="arrow">›</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="favorites">
+    <div class="scroll">
+      <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="page-head">
+        <div class="ico" onclick="go('profile')"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#a87f2c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></div>
+        <div class="title">我的收藏</div>
+      </div>
+      <div class="list" id="favList"></div>
+    </div>
+  </section>
+
+  <nav class="tabbar" id="tabbar" style="display:none">
+    <div class="t" data-screen="home" onclick="go('home')"><span class="ti"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><path d="M4 11l8-7 8 7M6.2 10v9h11.6v-9"/></svg></span>首頁</div>
+    <div class="t" data-screen="daichant" onclick="go('daichant')"><span class="ti"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><path d="M6.5 4.5h11v15l-5.5-3.5L6.5 19.5zM9 9h6M9 12h4"/></svg></span>代誦</div>
+    <div class="t center" data-screen="list" onclick="go('list')"><span class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.6"/><circle cx="12" cy="12" r="1.8"/><path d="M12 4.4v15.2M4.4 12h15.2M6.6 6.6l10.8 10.8M17.4 6.6 6.6 17.4"/></svg></span>咒語</div>
+    <div class="t" data-screen="subscribe" onclick="go('subscribe')"><span class="ti"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><path d="M7 4.5h10v15l-5-3.8L7 19.5z"/></svg></span>訂閱</div>
+    <div class="t" data-screen="profile" onclick="go('profile')"><span class="ti"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><path d="M12 11.5a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zM5.5 19.5c0-3.4 2.9-5.8 6.5-5.8s6.5 2.4 6.5 5.8"/></svg></span>我的</div>
+  </nav>
+
+  <div class="miniplayer" id="miniPlayer">
+    <span style="font-size:17px">🎧</span>
+    <div class="mp-t" id="mp-title">誦持音檔</div>
+    <div class="mp-b" id="mp-btn" onclick="miniToggle()">❚❚</div>
+    <div class="mp-x" onclick="miniStop()">✕</div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="modal" id="hxModal">
+    <div class="modal-card">
+      <div class="mt">🔒</div>
+      <h3>關於您填寫的資料</h3>
+      <p>迴向需要填寫對象的姓名與生日。目前版本您填寫的資料<b>僅儲存在本機裝置</b>，不會上傳伺服器，App 移除即清除。<br><br>（最終資料處理方式與是否提供「迴向牆」分享功能，待正式版隱私政策確認。）</p>
+      <div class="mbtns">
+        <button class="mb-ghost" onclick="closeHxModal(true)">返回</button>
+        <button class="mb-primary" onclick="closeHxModal(false)">我了解，繼續</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="gateModal">
+    <div class="modal-card">
+      <div class="mt" id="gate-ic">🔒</div>
+      <h3 id="gate-title">提示</h3>
+      <p id="gate-msg"></p>
+      <div class="mbtns">
+        <button class="mb-ghost" onclick="closeGate()">稍後</button>
+        <button class="mb-primary" id="gate-cta" onclick="gateGo()">前往</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="buddha-full" id="buddhaFull">
+    <div class="bf-img" id="bf-img"></div>
+    <div class="bf-glow"></div>
+    <div class="bf-rays"></div>
+    <div class="bf-hx" id="bf-hx"></div>
+    <div class="bf-name" id="bf-name">大悲咒</div>
+    <div class="bf-sub">滿版佛像 · 凝心觀想</div>
+    <div class="bf-close" onclick="closeBuddha()"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9H4V4M9 9l-5-5M15 15h5v5M15 15l5 5"/></svg> 縮小</div>
+  </div>
+
+</div>
+
+<script>
+var MANTRAS={
+  dabei:{name:'大悲咒',cover:'cover-dabei.webp',audio:'dabei.mp3',pop:'⭐ 最受歡迎',subs:'9,999+',perPlay:1,
+    tags:['消災解厄','慈悲加持','遠離苦難'],merits:['消災解厄','慈悲加持','遠離苦難','增長福慧'],
+    desc:'大悲咒為觀世音菩薩之根本咒，傳承持誦以發慈悲心、增長福慧。每日誦持，為您與家人祈福迴向。'},
+  xinjing:{name:'心經',cover:'cover-xinjing.webp',audio:'xinjing.mp3',pop:'熱門',subs:'8,888+',perPlay:1,
+    tags:['般若智慧','開智慧','破除煩惱'],merits:['開啟智慧','破除煩惱','心無罣礙','自在安定'],
+    desc:'《般若波羅蜜多心經》以精要文字闡明般若智慧，誦持以安定身心、明照自在，廣為信眾每日持誦。'},
+  yaoshi:{name:'藥師灌頂真言',cover:'cover-yaoshi.webp',audio:'yaoshi.mp3',pop:'熱門',subs:'6,666+',perPlay:1,
+    tags:['健康平安','消災延壽','祈福'],merits:['祈求平安','消災祈福','延壽植福','身心安康'],
+    desc:'藥師灌頂真言出自藥師如來本願，傳統以持誦祈求健康平安、消災祈福，為自身與親人誦念迴向。'},
+  zhunti:{name:'準提神咒',cover:'cover-zhunti.webp',audio:'zhunti.mp3',pop:'',subs:'5,555+',perPlay:1,
+    tags:['消除業障','增長福報','心想事成'],merits:['消除業障','增長福報','滿願祈福','福慧雙修'],
+    desc:'準提神咒為準提菩薩之心咒，傳承持誦以懺除業障、增長福報，信眾常於每日定課中持念迴向。'},
+  jingang:{name:'金剛經',cover:'cover-jingang.webp',audio:'jingang.mp3',pop:'',subs:'4,444+',perPlay:1,
+    tags:['破除執著','增長智慧','無畏自在'],merits:['破除執著','增長智慧','心安自在','廣結善緣'],
+    desc:'《金剛般若波羅蜜經》闡明無相、無住之般若深義，誦持以放下執著、安住自在，為流傳最廣的經典之一。'},
+  badaren:{name:'八大人覺經',cover:'cover-badaren.webp',audio:'badaren.mp3',pop:'',subs:'3,333+',perPlay:1,
+    tags:['覺悟人生','轉煩惱為菩提'],merits:['覺悟人生','少欲知足','精進向善','慈悲利他'],
+    desc:'《佛說八大人覺經》列述菩薩應覺知的八項要義，文簡義深，誦持以省思人生、長養善念。'}
+};
+var ORDER=['dabei','xinjing','yaoshi','zhunti','jingang','badaren'];
+var MERIT_ICONS=['<path d="M12 3.5l7 2.6v4.6c0 4.8-3.4 7.7-7 8.8-3.6-1.1-7-4-7-8.8V6.1z"/>','<path d="M12 19.5C8.5 17 5 14 5 10.6 5 8.6 6.6 7 8.5 7c1.4 0 2.7.8 3.5 2 .8-1.2 2.1-2 3.5-2C17.4 7 19 8.6 19 10.6c0 3.4-3.5 6.4-7 8.9z"/>','<path d="M5.5 18.5c0-7.5 5.5-13 13-13 0 7.5-5.5 13-13 13zM5.5 18.5c3.5-3.5 6.5-5.5 9.5-6.5"/>','<path d="M12 3.6l2.5 5.3 5.8.7-4.3 4 1.1 5.7L12 16.6 6.9 19.3l1.1-5.7-4.3-4 5.8-.7z"/>'];
+
+// 連續持誦徽章門檻（天）
+var ACH_STREAK=[{d:3,n:'初心不退',i:'🔥'},{d:7,n:'七日精進',i:'🪷'},{d:30,n:'月圓功成',i:'📿'},{d:60,n:'雙月勤行',i:'🌟'},{d:180,n:'半載虔誠',i:'💫'},{d:365,n:'週年不輟',i:'☀️'},{d:730,n:'兩載恆心',i:'🌕'},{d:1095,n:'三載道心',i:'🏵️'},{d:1825,n:'五載常寂',i:'👑'},{d:3650,n:'十載菩提',i:'🕉️'}];
+// 累計登入徽章門檻（天）
+var ACH_LOGIN=[{d:7,n:'七日參訪',i:'🌅'},{d:30,n:'月度護持',i:'🗓️'},{d:100,n:'百日精進',i:'💠'},{d:365,n:'週年護法',i:'🎍'},{d:1000,n:'千日不退',i:'🏆'},{d:1825,n:'五載護法',i:'🌟'},{d:3650,n:'十載護法',i:'🕊️'}];
+var COUNT_TIERS=[7,49,108,1080,10800,108000];
+var CT_ICONS=['🌸','📿','🏵️','💫','👑','🌞'];
+var CT_NAMES={
+ dabei:['結緣','慈光','悲願','普門','千手','大悲圓滿'],
+ xinjing:['初聞','照見','明心','般若','空慧','智慧圓通'],
+ yaoshi:['祈安','淨琉璃','消災','延壽','藥師願','琉璃光滿'],
+ zhunti:['淨業','增福','滿願','準提護','福慧','準提圓成'],
+ jingang:['破相','無住','金剛心','無畏','般若鋒','金剛不壞'],
+ badaren:['初覺','省思','少欲','精進','利他','大覺圓成']
+};
+
+var COUNTS={};
+try{COUNTS=JSON.parse(localStorage.getItem('cfrs_counts')||'{}')}catch(e){COUNTS={}}
+function saveCounts(){try{localStorage.setItem('cfrs_counts',JSON.stringify(COUNTS))}catch(e){}}
+function totalCount(){return ORDER.reduce(function(s,k){return s+(COUNTS[k]||0)},0)}
+
+/* ===== 會員/訂閱狀態 ===== */
+var STATE={loggedIn:false,subscribed:false};
+try{var _st=JSON.parse(localStorage.getItem('cfrs_state')||'{}');STATE.loggedIn=!!_st.loggedIn;STATE.subscribed=!!_st.subscribed}catch(e){}
+function saveState(){try{localStorage.setItem('cfrs_state',JSON.stringify(STATE))}catch(e){}}
+function canUse(){return STATE.loggedIn&&STATE.subscribed}
+function requireAccess(){if(!STATE.loggedIn){showGate('login');return false}if(!STATE.subscribed){showGate('sub');return false}return true}
+var gateMode='login';
+function showGate(mode){gateMode=mode;
+  if(mode==='login'){document.getElementById('gate-ic').textContent='🙏';document.getElementById('gate-title').textContent='請先登入';document.getElementById('gate-msg').innerHTML='登入後即可使用誦念與迴向功能，並同步您的紀錄。';document.getElementById('gate-cta').textContent='前往登入';}
+  else{document.getElementById('gate-ic').textContent='🪷';document.getElementById('gate-title').textContent='訂閱後開啟';document.getElementById('gate-msg').innerHTML='此功能需訂閱方案。訂閱後即可代誦持咒、設定迴向，享完整功德迴向服務。';document.getElementById('gate-cta').textContent='查看訂閱方案';}
+  document.getElementById('gateModal').classList.add('show');}
+function closeGate(){document.getElementById('gateModal').classList.remove('show')}
+function gateGo(){closeGate();if(gateMode==='login')go('login');else go('subscribe')}
+function doLogin(){STATE.loggedIn=true;saveState();toast('🙏 登入成功');setTimeout(function(){go('home')},600);}
+
+/* ===== 訂閱 ===== */
+var SELPLAN={name:'每月方案',price:'$3,600 /月'};
+function renderSubscribe(){
+  var st=document.getElementById('sub-status'); if(!st)return;
+  if(STATE.subscribed){
+    st.innerHTML='<div class="sub-card"><div class="tag">使用中</div><div class="nm">'+SELPLAN.name+'</div><div class="pl">自動續訂 · 系統每日為您代誦持咒</div><div class="meta"><span>下次扣款 2026/07/01</span><span>'+SELPLAN.price+'</span></div></div>'+
+      '<div style="margin:0 16px 14px;display:flex;gap:10px"><button class="mini-btn" style="flex:1;background:#fff;box-shadow:var(--shadow-soft);padding:12px" onclick="toast(\'變更方案（待串接）\')">變更方案</button><button class="mini-btn" style="flex:1;background:#fff;box-shadow:var(--shadow-soft);padding:12px;color:#b5573f" onclick="cancelSub()">取消訂閱</button></div>';
+  }else{ st.innerHTML='<div class="hint">您尚未訂閱。選擇方案並訂閱後，即可開啟誦念與迴向功能。</div>'; }
+  var btn=document.getElementById('sub-btn');
+  if(btn)btn.innerHTML=STATE.subscribed?('✓ 已訂閱（'+SELPLAN.name+'）'):('立即訂閱 <span id="curPrice">'+SELPLAN.price+'</span>');
+}
+function selPlan(el){var ps=document.querySelectorAll('#subscribe .plan');for(var i=0;i<ps.length;i++)ps[i].classList.remove('sel');el.classList.add('sel');SELPLAN={name:el.dataset.name,price:el.dataset.price};var cp=document.getElementById('curPrice');if(cp)cp.textContent=SELPLAN.price;}
+function doSubscribe(){if(STATE.subscribed){toast('您已是訂閱會員');return}STATE.subscribed=true;saveState();renderSubscribe();toast('🎉 訂閱成功，功德無量');}
+function cancelSub(){STATE.subscribed=false;saveState();renderSubscribe();toast('已取消訂閱（示意）');}
+
+/* ===== 收藏 ===== */
+var FAVS=[];
+try{FAVS=JSON.parse(localStorage.getItem('cfrs_favs')||'[]')}catch(e){FAVS=[]}
+function saveFavs(){try{localStorage.setItem('cfrs_favs',JSON.stringify(FAVS))}catch(e){}}
+function isFav(k){return FAVS.indexOf(k)>-1}
+function toggleFav(k){var i=FAVS.indexOf(k);if(i>-1){FAVS.splice(i,1);toast('已移除收藏')}else{FAVS.push(k);toast('❤️ 已加入收藏')}saveFavs();refreshFav();}
+function refreshFav(){var df=document.getElementById('d-fav');if(df)df.textContent=isFav(CUR)?'❤️':'🤍';var dcf=document.getElementById('dcd-fav');if(dcf)dcf.textContent=isFav('dc_'+dcCUR)?'❤️':'🤍';renderHomeFavs();renderFavs();}
+function favCardHot(k){
+  if(MANTRAS[k]){var m=MANTRAS[k];return '<div class="c" onclick="openDetail(\''+k+'\')"><div class="pic" style="background:url(assets/images/'+m.cover+') center/cover"></div><div class="meta"><b>'+m.name+'</b><p>'+m.tags.slice(0,2).join('·')+'</p><div class="fire">❤️ 已收藏</div></div></div>';}
+  var d=dcFind(k);if(d)return '<div class="c" onclick="openDcDetail('+d.ts+')"><div class="pic" style="background:url(assets/images/'+dcCover(d)+') center/cover, radial-gradient(circle at 50% 38%,#fcefcb,#e7cc8a)"></div><div class="meta"><b>'+d.title+'</b><p>代誦祈願</p><div class="fire">❤️ 已收藏</div></div></div>';
+  return '';
+}
+function favRow(k){
+  if(MANTRAS[k]){var m=MANTRAS[k];return '<div class="row" onclick="openDetail(\''+k+'\')"><div class="av" style="background:url(assets/images/'+m.cover+') center/cover"></div><div class="info"><b>'+m.name+'</b><div class="tags">'+m.tags.map(function(t){return '<span class="chip">'+t+'</span>'}).join('')+'</div></div><div class="arrow">›</div></div>';}
+  var d=dcFind(k);if(d)return '<div class="row" onclick="openDcDetail('+d.ts+')"><div class="av" style="background:url(assets/images/'+dcCover(d)+') center/cover, radial-gradient(circle at 50% 40%,#fcefcb,#e7cc8a)"></div><div class="info"><b>'+d.title+'</b><div style="font-size:12px;color:var(--ink-soft);margin-top:4px">代誦祈願</div></div><div class="arrow">›</div></div>';
+  return '';
+}
+function renderHomeFavs(){var box=document.getElementById('homeFav');if(!box)return;if(!FAVS.length){box.innerHTML='';return}var out='<div class="section-h">我的收藏 <a onclick="go(\'favorites\')">查看更多 ›</a></div><div class="hot">';for(var i=0;i<FAVS.length;i++)out+=favCardHot(FAVS[i]);out+='</div>';box.innerHTML=out;}
+function renderFavs(){var box=document.getElementById('favList');if(!box)return;if(!FAVS.length){box.innerHTML='<div class="empty"><div class="ei">🤍</div><p>尚未收藏任何咒語或代誦<br>在詳情頁點愛心即可收藏</p><div style="margin-top:20px"><button class="btn-ghost" style="width:auto;padding:12px 26px;display:inline-flex" onclick="go(\'list\')">去逛逛咒語 ›</button></div></div>';return}var out='';for(var i=0;i<FAVS.length;i++)out+=favRow(FAVS[i]);box.innerHTML=out;}
+
+var HUIXIANG=[];
+try{HUIXIANG=JSON.parse(localStorage.getItem('cfrs_hx')||'[]')}catch(e){HUIXIANG=[]}
+function saveHx(){try{localStorage.setItem('cfrs_hx',JSON.stringify(HUIXIANG))}catch(e){}}
+function hxFor(key){return HUIXIANG.filter(function(h){return h.mantra===key})}
+var DAICHANT=[];
+try{DAICHANT=JSON.parse(localStorage.getItem('cfrs_daichant')||'[]')}catch(e){DAICHANT=[]}
+function saveDc(){try{localStorage.setItem('cfrs_daichant',JSON.stringify(DAICHANT))}catch(e){}}
+function dcFind(id){for(var i=0;i<DAICHANT.length;i++)if(('dc_'+DAICHANT[i].ts)===id)return DAICHANT[i];return null}
+function dcCover(d){return (d&&d.cover)?d.cover:'dc-cover-1.webp'}
+function entName(key){if(MANTRAS[key])return MANTRAS[key].name;var d=dcFind(key);return d?('代誦・'+d.title):'代誦';}
+function uniquePeople(){
+  var seen={},n=0;
+  for(var i=0;i<HUIXIANG.length;i++){var k=HUIXIANG[i].name+'|'+(HUIXIANG[i].bday||'');if(!seen[k]){seen[k]=1;n++}}
+  return n;
+}
+function genderIcon(g){
+  if(g==='male')return {bg:'linear-gradient(135deg,#dbe9f7,#a9cdec)',ico:'👨'};
+  if(g==='female')return {bg:'linear-gradient(135deg,#f8dee8,#edb1c7)',ico:'👩'};
+  return {bg:'linear-gradient(135deg,#dff0d8,#b3d99a)',ico:'🐾'};
+}
+
+// 日期/天數追蹤
+function todayStr(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+var LOGINDAYS=[];
+try{LOGINDAYS=JSON.parse(localStorage.getItem('cfrs_login_days')||'[]')}catch(e){LOGINDAYS=[]}
+function markLogin(){var t=todayStr();if(LOGINDAYS.indexOf(t)<0){LOGINDAYS.push(t);try{localStorage.setItem('cfrs_login_days',JSON.stringify(LOGINDAYS))}catch(e){}}}
+var LISTENDAYS=[];
+try{LISTENDAYS=JSON.parse(localStorage.getItem('cfrs_listen_days')||'[]')}catch(e){LISTENDAYS=[]}
+function markListen(){var t=todayStr();if(LISTENDAYS.indexOf(t)<0){LISTENDAYS.push(t);try{localStorage.setItem('cfrs_listen_days',JSON.stringify(LISTENDAYS))}catch(e){}}}
+function maxStreak(days){
+  if(!days||!days.length)return 0;
+  var arr=days.slice().sort();
+  var best=1,cur=1;
+  for(var i=1;i<arr.length;i++){
+    var diff=Math.round((new Date(arr[i])-new Date(arr[i-1]))/86400000);
+    if(diff===1){cur++;if(cur>best)best=cur}else if(diff>1){cur=1}
+  }
+  return best;
+}
+
+var TAB_SCREENS=['home','daichant','list','subscribe','profile'];
+function go(id){
+  if(window.speechSynthesis&&window.speechSynthesis.speaking&&id!=='dcdetail'){window.speechSynthesis.cancel();stopBgm();stopMuyu();var pb0=document.getElementById('dcd-play');if(pb0)pb0.innerHTML='🔊 開始誦念';}
+  var ss=document.querySelectorAll('.screen');
+  for(var i=0;i<ss.length;i++)ss[i].classList.remove('active');
+  var el=document.getElementById(id); if(el)el.classList.add('active');
+  var tb=document.getElementById('tabbar');
+  if(TAB_SCREENS.indexOf(id)>-1){tb.style.display='flex';
+    var ts=document.querySelectorAll('#tabbar .t');
+    for(var j=0;j<ts.length;j++)ts[j].classList.toggle('on',ts[j].dataset.screen===id);
+  }else{tb.style.display='none';}
+  if(id==='home')renderHomeFavs();
+  if(id==='favorites')renderFavs();
+  if(id==='subscribe')renderSubscribe();
+  if(id==='records')renderRecords();
+  if(id==='profile'){document.getElementById('p-total').textContent=totalCount();document.getElementById('p-login').textContent=LOGINDAYS.length;document.getElementById('p-hx').textContent=uniquePeople();var pm=document.getElementById('p-mail');if(pm)pm.innerHTML=STATE.loggedIn?('會員 · '+(STATE.subscribed?'訂閱中':'尚未訂閱')):('尚未登入 · <a onclick="go(\'login\')" style="color:var(--gold-deep);font-weight:700;cursor:pointer">立即登入</a>');}
+  if(id==='huixiang'){if(!MANTRAS[hxMantra]&&!dcFind(hxMantra))hxMantra='dabei';var hf=document.getElementById('hx-for');if(hf)hf.textContent=entName(hxMantra);maybeHxModal();renderMantraSel();renderGender();renderHxList();}
+  if(id==='hxmgr')renderHxMgr();
+  if(id==='daichant')renderDc();
+  if(id==='dcdetail'){renderDcSettings();renderDcHx();}
+  var sc=document.querySelectorAll('.scroll');
+  for(var k=0;k<sc.length;k++)sc[k].scrollTop=0;
+}
+
+function renderList(){
+  var out='';
+  for(var i=0;i<ORDER.length;i++){
+    var k=ORDER[i],m=MANTRAS[k];
+    out+='<div class="row" onclick="openDetail(\''+k+'\')">'+
+      '<div class="av" style="background:url(assets/images/'+m.cover+') center/cover"></div>'+
+      '<div class="info"><b>'+m.name+'</b>'+
+      '<div class="tags">'+m.tags.map(function(t){return '<span class="chip">'+t+'</span>'}).join('')+'</div>'+
+      '<div class="fire">🔥 '+m.subs+' 人訂閱</div></div>'+
+      '<div class="arrow">›</div></div>';
+  }
+  document.getElementById('mantraList').innerHTML=out;
+}
+
+var CUR='dabei';
+function openDetail(key){
+  CUR=key; var m=MANTRAS[key];
+  document.getElementById('d-img').style.backgroundImage='url(assets/images/'+m.cover+')';
+  document.getElementById('d-name').textContent=m.name;
+  var pop=document.getElementById('d-pop'); if(m.pop){pop.style.display='';pop.textContent=m.pop}else{pop.style.display='none'}
+  document.getElementById('d-tags').innerHTML=m.tags.map(function(t){return '<span class="chip">'+t+'</span>'}).join('');
+  document.getElementById('d-desc').textContent=m.desc;
+  document.getElementById('d-playttl').textContent=m.name+' · 誦持音檔';
+  document.getElementById('d-perplay').textContent=m.perPlay;
+  document.getElementById('d-count').textContent=COUNTS[key]||0;
+  var hn=hxFor(key).map(function(h){return h.name});
+  if(hn.length){
+    document.getElementById('d-hxtitle').textContent='已設定迴向對象（'+hn.length+'/5）';
+    document.getElementById('d-hxsub').textContent='迴向給：'+hn.join('、');
+    document.getElementById('d-hxarrow').textContent='管理 ›';
+  }else{
+    document.getElementById('d-hxtitle').textContent='設定迴向對象';
+    document.getElementById('d-hxsub').textContent='填寫姓名與生日，將此咒功德迴向給對方';
+    document.getElementById('d-hxarrow').textContent='設定 ›';
+  }
+  document.getElementById('d-merits').innerHTML=m.merits.map(function(mt,i){
+    return '<div class="m"><div class="ic"><svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="#8a5a17" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+MERIT_ICONS[i%4]+'</svg></div><span>'+mt+'</span></div>';
+  }).join('');
+  document.getElementById('d-fav').textContent=isFav(key)?'❤️':'🤍';
+  stopPlay();
+  var a=document.getElementById('audio'); a.src='assets/audio/'+m.audio;
+  document.getElementById('barFill').style.width='0%';
+  document.getElementById('curT').textContent='00:00'; document.getElementById('durT').textContent='00:00';
+  go('detail');
+}
+
+function A(){return document.getElementById('audio')}
+function showMini(){var t=document.getElementById('mp-title');if(t)t.textContent=(MANTRAS[CUR]?MANTRAS[CUR].name:'誦持音檔')+' · 誦持音檔';var mp=document.getElementById('miniPlayer');if(mp)mp.classList.add('show');}
+function hideMini(){var mp=document.getElementById('miniPlayer');if(mp)mp.classList.remove('show');}
+function miniToggle(){var a=A();if(a.paused){a.play().catch(function(){})}else{a.pause()}}
+function miniStop(){var a=A();try{a.pause();a.currentTime=0}catch(e){}hideMini();var b=document.getElementById('ppBtn');if(b)b.textContent='▶';}
+function fmt(s){s=Math.floor(s||0);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function stopPlay(){var a=A();try{a.pause();a.currentTime=0}catch(e){}var b=document.getElementById('ppBtn');if(b)b.textContent='▶';hideMini();}
+function togglePlay(){
+  var a=A();
+  if(a.paused){
+    a.play().then(function(){document.getElementById('ppBtn').textContent='❚❚'})
+     .catch(function(){toast('此咒音檔尚未放入或瀏覽器擋自動播放')});
+  }else{a.pause();document.getElementById('ppBtn').textContent='▶'}
+}
+
+function selPlan(el){
+  var ps=document.querySelectorAll('#subscribe .plan');
+  for(var i=0;i<ps.length;i++)ps[i].classList.remove('sel');
+  el.classList.add('sel');
+  SELPLAN={name:el.dataset.name,price:el.dataset.price};
+  var cp=document.getElementById('curPrice'); if(cp)cp.textContent=SELPLAN.price;
+}
+function checkout(){toast('前往綠界／藍新網頁金流（待串接）')}
+
+function loginStep(n){
+  document.getElementById('login-step1').style.display=n===1?'':'none';
+  document.getElementById('login-step2').style.display=n===2?'':'none';
+  if(n===2){var f=document.querySelector('#login-step2 .codeboxes input');if(f)f.focus();toast('驗證碼已寄出（示意）')}
+}
+document.addEventListener('input',function(e){
+  if(e.target.closest&&e.target.closest('.codeboxes')&&e.target.value){
+    var ins=Array.prototype.slice.call(document.querySelectorAll('.codeboxes input'));
+    var i=ins.indexOf(e.target); if(i>-1&&i<ins.length-1)ins[i+1].focus();
+  }
+});
+
+function speakWish(){
+  var t=document.getElementById('dc-title').value.trim();
+  var b=document.getElementById('dc-body').value.trim();
+  if(!t&&!b){toast('請先輸入祈願內容');return}
+  if(!('speechSynthesis' in window)){toast('此裝置不支援語音朗讀');return}
+  if(speechSynthesis.speaking){speechSynthesis.cancel();document.getElementById('ttsBtn').innerHTML='🔊 開始誦念';return}
+  var u=new SpeechSynthesisUtterance((t?t+'。':'')+b);
+  u.lang='zh-TW'; u.rate=.85; u.pitch=1;
+  u.onstart=function(){document.getElementById('ttsBtn').innerHTML='⏹ 停止誦念'};
+  u.onend=function(){document.getElementById('ttsBtn').innerHTML='🔊 開始誦念'};
+  speechSynthesis.speak(u);
+}
+
+var hxGender='male';
+var hxMantra='dabei';
+function pickGender(g){hxGender=g; renderGender();}
+function renderGender(){
+  var gs=document.querySelectorAll('#hx-gender .gd');
+  for(var i=0;i<gs.length;i++)gs[i].classList.toggle('on',gs[i].dataset.g===hxGender);
+}
+function pickMantra(k){hxMantra=k;var hf=document.getElementById('hx-for');if(hf)hf.textContent=entName(k);renderMantraSel();renderHxList();}
+function renderMantraSel(){
+  var box=document.getElementById('hx-mantra'); if(!box)return;
+  var out='';
+  for(var i=0;i<ORDER.length;i++){var k=ORDER[i];out+='<div class="ms'+(k===hxMantra?' on':'')+'" onclick="pickMantra(\''+k+'\')">'+MANTRAS[k].name+'</div>';}
+  for(var j=0;j<DAICHANT.length;j++){var id='dc_'+DAICHANT[j].ts;out+='<div class="ms'+(id===hxMantra?' on':'')+'" onclick="pickMantra(\''+id+'\')">代誦・'+DAICHANT[j].title+'</div>';}
+  box.innerHTML=out;
+}
+function openHuixiang(){hxMantra=CUR;go('huixiang')}
+function submitHuixiang(){
+  var name=document.getElementById('hx-name').value.trim();
+  var bday=document.getElementById('hx-bday').value;
+  if(!name){toast('請輸入迴向對象姓名');return}
+  if(hxFor(hxMantra).length>=5){toast('每部咒最多設定 5 位迴向對象');return}
+  HUIXIANG.push({name:name,bday:bday,gender:hxGender,mantra:hxMantra||'',ts:Date.now()+Math.floor(Math.random()*1000)});
+  saveHx();
+  document.getElementById('hx-name').value='';
+  document.getElementById('hx-bday').value='';
+  hxGender='male'; renderGender();
+  renderHxList();
+  toast('🙏 已為 '+name+' 設定迴向（'+entName(hxMantra)+'）');
+}
+function removeHx(ts){
+  HUIXIANG=HUIXIANG.filter(function(h){return h.ts!==ts});
+  saveHx(); renderHxList();
+  toast('已刪除迴向對象');
+}
+function hxRowHtml(h,delFn){
+  var gi=genderIcon(h.gender);
+  return '<div class="rec"><div class="av" style="background:'+gi.bg+'">'+gi.ico+'</div>'+
+    '<div class="info"><b>'+h.name+'</b><span>'+(h.bday?h.bday:'未填生日')+'</span></div>'+
+    '<div class="del" onclick="'+delFn+'('+h.ts+')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"/></svg></div></div>';
+}
+function renderHxList(){
+  var box=document.getElementById('hx-list'); if(!box)return;
+  var mine=hxFor(hxMantra), mn=entName(hxMantra);
+  if(!mine.length){box.innerHTML='';return}
+  var out='<div class="section-h" style="margin:4px 18px 10px">'+mn+'的迴向對象（'+mine.length+'/5）</div>';
+  for(var i=mine.length-1;i>=0;i--)out+=hxRowHtml(mine[i],'removeHx');
+  box.innerHTML=out;
+}
+function renderHxMgr(){
+  var box=document.getElementById('hxmgrList'); if(!box)return;
+  if(!HUIXIANG.length){box.innerHTML='<div class="empty"><div class="ei">🕯️</div><p>尚未設定任何迴向對象<br>進入咒語詳情頁的「設定迴向對象」即可新增</p><div style="margin-top:20px"><button class="btn-ghost" style="width:auto;padding:12px 26px;display:inline-flex" onclick="go(\'list\')">去設定迴向 ›</button></div></div>';return}
+  var out='';
+  for(var i=0;i<ORDER.length;i++){
+    var k=ORDER[i],mine=hxFor(k);
+    if(!mine.length)continue;
+    out+='<div class="section-h">'+MANTRAS[k].name+'（'+mine.length+'）</div>';
+    for(var j=mine.length-1;j>=0;j--)out+=hxRowHtml(mine[j],'removeHxMgr');
+  }
+  for(var di=0;di<DAICHANT.length;di++){
+    var did='dc_'+DAICHANT[di].ts,dm=hxFor(did);
+    if(!dm.length)continue;
+    out+='<div class="section-h">代誦・'+DAICHANT[di].title+'（'+dm.length+'）</div>';
+    for(var dj=dm.length-1;dj>=0;dj--)out+=hxRowHtml(dm[dj],'removeHxMgr');
+  }
+  box.innerHTML=out;
+}
+function removeHxMgr(ts){
+  HUIXIANG=HUIXIANG.filter(function(h){return h.ts!==ts});
+  saveHx(); renderHxMgr();
+  toast('已刪除迴向對象');
+}
+function openBuddha(){
+  var m=MANTRAS[CUR];
+  document.getElementById('bf-img').style.backgroundImage='url(assets/images/'+m.cover+')';
+  document.getElementById('bf-name').textContent=m.name;
+  var hn=hxFor(CUR).map(function(h){return h.name});
+  document.getElementById('bf-hx').textContent=hn.length?('🕯️ 迴向給：'+hn.join('、')):'';
+  document.getElementById('buddhaFull').classList.add('show');
+}
+function closeBuddha(){document.getElementById('buddhaFull').classList.remove('show')}
+var VOICES=[],dcVoice='',dcRate=0.85,dcPitch=1;
+try{var _tts=JSON.parse(localStorage.getItem('cfrs_tts')||'{}');if(_tts.voice)dcVoice=_tts.voice;if(_tts.rate)dcRate=_tts.rate;if(_tts.pitch)dcPitch=_tts.pitch}catch(e){}
+var RATE_OPTS=[{n:'慢',v:0.7},{n:'適中',v:0.85},{n:'快',v:1.05}];
+var PITCH_OPTS=[{n:'低沉',v:0.8},{n:'適中',v:1},{n:'清亮',v:1.2}];
+function saveTts(){try{localStorage.setItem('cfrs_tts',JSON.stringify({voice:dcVoice,rate:dcRate,pitch:dcPitch}))}catch(e){}}
+function loadVoices(){try{VOICES=(window.speechSynthesis.getVoices()||[]).filter(function(v){return /zh|chinese|cmn|yue|han|tw|hk/i.test((v.lang||'')+(v.name||''))})}catch(e){VOICES=[]}renderDcSettings();}
+function setVoice(n){dcVoice=n;saveTts();}
+function setRate(v){dcRate=v;saveTts();renderTtsSel();}
+function setPitch(v){dcPitch=v;saveTts();renderTtsSel();}
+function renderTtsSel(){
+  var vs=document.getElementById('dc-voice');
+  if(vs){var o='<option value="">系統預設語音</option>';for(var i=0;i<VOICES.length;i++){o+='<option value="'+VOICES[i].name+'"'+(VOICES[i].name===dcVoice?' selected':'')+'>'+VOICES[i].name+'（'+VOICES[i].lang+'）</option>';}vs.innerHTML=o;}
+  var rb=document.getElementById('dc-rate');
+  if(rb){var r='';for(var a=0;a<RATE_OPTS.length;a++){r+='<div class="ms'+(RATE_OPTS[a].v===dcRate?' on':'')+'" onclick="setRate('+RATE_OPTS[a].v+')">'+RATE_OPTS[a].n+'</div>';}rb.innerHTML=r;}
+  var pb=document.getElementById('dc-pitch');
+  if(pb){var pp='';for(var b=0;b<PITCH_OPTS.length;b++){pp+='<div class="ms'+(PITCH_OPTS[b].v===dcPitch?' on':'')+'" onclick="setPitch('+PITCH_OPTS[b].v+')">'+PITCH_OPTS[b].n+'</div>';}pb.innerHTML=pp;}
+}
+function startBgm(){var m=document.getElementById('bgm');if(!m)return;if(!m.getAttribute('src'))m.src='assets/audio/bgm-zen.mp3';m.volume=0.45;try{m.currentTime=0}catch(e){}m.play().catch(function(){});}
+function stopBgm(){var m=document.getElementById('bgm');if(m){try{m.pause()}catch(e){}}}
+function addDaichant(){
+  var t=document.getElementById('dc-title').value.trim();
+  var b=document.getElementById('dc-body').value.trim();
+  if(!t){toast('請輸入祈願標題');return}
+  if(DAICHANT.length>=3){toast('代誦最多新增 3 則');return}
+  DAICHANT.push({title:t,body:b,voice:'',rate:0.85,pitch:1,muyu:false,cover:'dc-cover-'+(DAICHANT.length%3+1)+'.webp',ts:Date.now()+Math.floor(Math.random()*1000)});
+  saveDc();
+  document.getElementById('dc-title').value='';document.getElementById('dc-body').value='';
+  renderDc();
+  toast('🪷 已新增代誦「'+t+'」');
+}
+function removeDc(ts){DAICHANT=DAICHANT.filter(function(d){return d.ts!==ts});saveDc();renderDc();toast('已刪除代誦');}
+function renderDc(){
+  var box=document.getElementById('dc-list'); if(!box)return;
+  var out='';
+  for(var i=0;i<DAICHANT.length;i++){var d=DAICHANT[i];var hc=hxFor('dc_'+d.ts).length;
+    out+='<div class="card" style="display:flex;align-items:center;gap:10px;cursor:pointer" onclick="openDcDetail('+d.ts+')">'+
+      '<div style="width:42px;height:42px;border-radius:12px;flex:none;background:url(assets/images/'+dcCover(d)+') center/cover, radial-gradient(circle at 50% 40%,#fcefcb,#e7cc8a)"></div>'+
+      '<div style="flex:1;min-width:0"><b style="font-family:var(--serif);font-size:15px">'+d.title+'</b>'+
+      '<div style="font-size:12px;color:var(--ink-soft);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+(d.body?d.body:'（無內文）')+(hc?('　·　迴向 '+hc+' 位'):'')+'</div></div>'+
+      '<div class="dcbtn del2" onclick="event.stopPropagation();removeDc('+d.ts+')">🗑️</div>'+
+      '<div style="color:#cdb472;font-size:18px">›</div></div>';
+  }
+  box.innerHTML=out;
+}
+var dcCUR=null;
+function curDc(){return dcFind('dc_'+dcCUR)}
+function openDcDetail(ts){dcCUR=ts;var d=curDc();if(!d)return;document.getElementById('dcd-title').textContent=d.title;document.getElementById('dcd-body').textContent=d.body||'（無內文）';var df=document.getElementById('dcd-fav');if(df)df.textContent=isFav('dc_'+ts)?'❤️':'🤍';var im=document.getElementById('dcd-img');if(im)im.src='assets/images/'+dcCover(d);renderDcSettings();renderDcHx();go('dcdetail');}
+function renderDcSettings(){
+  var d=curDc(); if(!d)return;
+  var vs=document.getElementById('dcd-voice');
+  if(vs){var o='<option value="">系統預設語音</option>';for(var i=0;i<VOICES.length;i++){o+='<option value="'+VOICES[i].name+'"'+(VOICES[i].name===d.voice?' selected':'')+'>'+VOICES[i].name+'（'+VOICES[i].lang+'）</option>';}vs.innerHTML=o;}
+  var rb=document.getElementById('dcd-rate');
+  if(rb){var r='';for(var a=0;a<RATE_OPTS.length;a++){r+='<div class="ms'+(RATE_OPTS[a].v===d.rate?' on':'')+'" onclick="setDcRate('+RATE_OPTS[a].v+')">'+RATE_OPTS[a].n+'</div>';}rb.innerHTML=r;}
+  var pb=document.getElementById('dcd-pitch');
+  if(pb){var pp='';for(var b=0;b<PITCH_OPTS.length;b++){pp+='<div class="ms'+(PITCH_OPTS[b].v===d.pitch?' on':'')+'" onclick="setDcPitch('+PITCH_OPTS[b].v+')">'+PITCH_OPTS[b].n+'</div>';}pb.innerHTML=pp;}
+  var mb=document.getElementById('dcd-muyu');
+  if(mb){mb.innerHTML='<div class="ms'+(d.muyu?' on':'')+'" onclick="setMuyu(true)">🔔 木魚 開</div><div class="ms'+(!d.muyu?' on':'')+'" onclick="setMuyu(false)">木魚 關</div>';}
+}
+function renderDcHx(){
+  var box=document.getElementById('dcd-hx'); if(!box)return;
+  var mine=hxFor('dc_'+dcCUR);
+  if(!mine.length){box.innerHTML='尚未設定迴向對象，點右上「設定迴向」新增。';return}
+  var out='';for(var i=0;i<mine.length;i++){var gi=genderIcon(mine[i].gender);out+='<span style="display:inline-flex;align-items:center;gap:5px;background:#fff7e6;border:1px solid #ecdcb4;border-radius:20px;padding:5px 12px;margin:0 6px 6px 0;font-size:13px">'+gi.ico+' '+mine[i].name+'</span>';}
+  box.innerHTML=out;
+}
+function setDcVoice(n){var d=curDc();if(d){d.voice=n;saveDc()}}
+function setDcRate(v){var d=curDc();if(d){d.rate=v;saveDc();renderDcSettings()}}
+function setDcPitch(v){var d=curDc();if(d){d.pitch=v;saveDc();renderDcSettings()}}
+function setMuyu(b){var d=curDc();if(d){d.muyu=b;saveDc();renderDcSettings()}}
+function startMuyu(){var m=document.getElementById('muyu');if(!m)return;if(!m.getAttribute('src'))m.src='assets/audio/muyu.mp3';m.volume=0.5;try{m.currentTime=0}catch(e){}m.play().catch(function(){});}
+function stopMuyu(){var m=document.getElementById('muyu');if(m){try{m.pause()}catch(e){}}}
+function playDcDetail(){
+  var d=curDc(); if(!d)return;
+  if(!('speechSynthesis' in window)){toast('此裝置不支援語音朗讀');return}
+  if(window.speechSynthesis.speaking){window.speechSynthesis.cancel();stopBgm();stopMuyu();document.getElementById('dcd-play').innerHTML='🔊 開始誦念';toast('已停止誦念');return}
+  var u=new SpeechSynthesisUtterance((d.title?d.title+'。':'')+(d.body||''));
+  u.lang='zh-TW';u.rate=d.rate||0.85;u.pitch=d.pitch||1;
+  if(d.voice){for(var vi=0;vi<VOICES.length;vi++){if(VOICES[vi].name===d.voice){u.voice=VOICES[vi];break}}}
+  u.onstart=function(){startBgm();if(d.muyu)startMuyu();var b=document.getElementById('dcd-play');if(b)b.innerHTML='⏹ 停止誦念';};
+  u.onend=function(){stopBgm();stopMuyu();var b=document.getElementById('dcd-play');if(b)b.innerHTML='🔊 開始誦念';};
+  u.onerror=function(){stopBgm();stopMuyu();var b=document.getElementById('dcd-play');if(b)b.innerHTML='🔊 開始誦念';};
+  window.speechSynthesis.speak(u);
+  toast('🔊 誦念中'+(d.muyu?'（襌樂＋木魚）':'（含背景襌樂）'));
+}
+function huixiangDc(ts){hxMantra='dc_'+ts;go('huixiang');}
+
+function maybeHxModal(){
+  var seen=false; try{seen=localStorage.getItem('cfrs_hx_seen')==='1'}catch(e){}
+  if(!seen)document.getElementById('hxModal').classList.add('show');
+}
+function closeHxModal(back){
+  document.getElementById('hxModal').classList.remove('show');
+  try{localStorage.setItem('cfrs_hx_seen','1')}catch(e){}
+  if(back)go('home');
+}
+
+function achCard(unlocked,icon,title,sub){
+  return '<div class="ach'+(unlocked?'':' lock')+'"><div class="badge">'+icon+'</div><b>'+title+'</b><small>'+sub+'</small></div>';
+}
+function renderAch(){
+  var ls=maxStreak(LISTENDAYS), lg=LOGINDAYS.length, i, t;
+  var g1='';
+  for(i=0;i<ORDER.length;i++){var k=ORDER[i],m=MANTRAS[k];g1+=achCard((COUNTS[k]||0)>0,'🌱','首誦'+m.name,'完成首次持誦')}
+  var g2='';
+  for(i=0;i<ACH_STREAK.length;i++){var a2=ACH_STREAK[i];g2+=achCard(ls>=a2.d,a2.i,a2.n,'連續 '+a2.d+' 天')}
+  var g3='';
+  for(i=0;i<ACH_LOGIN.length;i++){var a3=ACH_LOGIN[i];g3+=achCard(lg>=a3.d,a3.i,a3.n,'登入 '+a3.d+' 天')}
+  var g4='';
+  for(i=0;i<ORDER.length;i++){
+    var mk=ORDER[i],mm=MANTRAS[mk],cc=COUNTS[mk]||0,nm=CT_NAMES[mk]||[];
+    g4+='<div class="section-h" style="font-size:14px;margin:8px 18px 8px;color:var(--ink-soft)">'+mm.name+'（已誦 '+cc+' 遍）</div><div class="ach-grid">';
+    for(t=0;t<COUNT_TIERS.length;t++){g4+=achCard(cc>=COUNT_TIERS[t],CT_ICONS[t],nm[t]||(COUNT_TIERS[t]+'遍'),COUNT_TIERS[t]+' 遍')}
+    g4+='</div>';
+  }
+  document.getElementById('achWrap').innerHTML=
+    '<div class="section-h">持誦啟程 · 每部咒首誦</div><div class="ach-grid">'+g1+'</div>'+
+    '<div class="section-h">持之以恆 · 連續持誦</div><div class="ach-grid">'+g2+'</div>'+
+    '<div class="section-h">每日精進 · 累計登入</div><div class="ach-grid">'+g3+'</div>'+
+    '<div class="section-h">誦持遍數 · 各咒里程碑</div>'+g4;
+}
+function renderRecords(){
+  document.getElementById('r-total').textContent=totalCount();
+  document.getElementById('r-login').textContent=LOGINDAYS.length;
+  document.getElementById('r-streak').textContent=maxStreak(LISTENDAYS);
+  var out='';
+  for(var i=0;i<ORDER.length;i++){
+    var k=ORDER[i],m=MANTRAS[k],c=COUNTS[k]||0;
+    out+='<div class="rec"><div class="av" style="background-image:url(assets/images/'+m.cover+')"></div>'+
+      '<div class="info"><b>'+m.name+'</b><span>每完整播放計 '+m.perPlay+' 遍</span></div>'+
+      '<div class="num">'+c+'<small> 遍</small></div></div>';
+  }
+  document.getElementById('recList').innerHTML=out;
+  renderAch();
+}
+
+var tT;
+function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(tT);tT=setTimeout(function(){t.classList.remove('show')},1800)}
+
+var deferred;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;document.getElementById('installBar').classList.add('show')});
+function doInstall(){document.getElementById('installBar').classList.remove('show');if(deferred){deferred.prompt();deferred=null}else{toast('在瀏覽器選單選「加入主畫面」')}}
+
+document.addEventListener('DOMContentLoaded',function(){
+  markLogin();
+  var a=A();
+  a.addEventListener('loadedmetadata',function(){document.getElementById('durT').textContent=fmt(a.duration)});
+  a.addEventListener('play',function(){var b=document.getElementById('ppBtn');if(b)b.textContent='❚❚';showMini();var mb=document.getElementById('mp-btn');if(mb)mb.textContent='❚❚';});
+  a.addEventListener('pause',function(){var b=document.getElementById('ppBtn');if(b)b.textContent='▶';if(!a.ended){var mb=document.getElementById('mp-btn');if(mb)mb.textContent='▶';}});
+  a.addEventListener('timeupdate',function(){
+    if(!a.duration)return;
+    document.getElementById('barFill').style.width=(a.currentTime/a.duration*100)+'%';
+    document.getElementById('curT').textContent=fmt(a.currentTime);
+  });
+  a.addEventListener('ended',function(){
+    document.getElementById('ppBtn').textContent='▶';hideMini();
+    var m=MANTRAS[CUR]; COUNTS[CUR]=(COUNTS[CUR]||0)+(m.perPlay||1); saveCounts(); markListen();
+    document.getElementById('d-count').textContent=COUNTS[CUR];
+    toast('🪷 已完整誦持一次，+'+(m.perPlay||1)+' 遍');
+  });
+  renderList(); renderDc(); loadVoices(); if('speechSynthesis' in window){try{window.speechSynthesis.onvoiceschanged=loadVoices}catch(e){}}
+  var wrap=document.getElementById('splash');
+  for(var i=0;i<10;i++){var d=document.createElement('div');d.className='spark';var sz=3+Math.random()*5;d.style.width=d.style.height=sz+'px';d.style.left=(10+Math.random()*80)+'%';d.style.top=(8+Math.random()*45)+'%';d.style.animationDelay=(Math.random()*6)+'s';wrap.appendChild(d)}
+  var full=document.querySelector('#detail .full');
+  if(full){for(var n=0;n<7;n++){var e=document.createElement('div');e.className='sparkD';var z=3+Math.random()*5;e.style.width=e.style.height=z+'px';e.style.left=(15+Math.random()*70)+'%';e.style.top=(10+Math.random()*55)+'%';e.style.animationDelay=(Math.random()*6)+'s';full.appendChild(e)}}
+  var bf=document.getElementById('buddhaFull');
+  if(bf){for(var q=0;q<12;q++){var p=document.createElement('div');p.className='bf-spark';var ps=3+Math.random()*6;p.style.width=p.style.height=ps+'px';p.style.left=(8+Math.random()*84)+'%';p.style.top=(10+Math.random()*70)+'%';p.style.animationDelay=(Math.random()*6)+'s';bf.appendChild(p)}}
+  if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
+});
+</script>
+</body>
+</html>
